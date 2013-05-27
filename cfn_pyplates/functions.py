@@ -124,7 +124,7 @@ def join(sep, *args):
             It will not terminate the final value.
 
         *args: Any number of values you want combined, passed as
-            positional arguments
+            positional arguments. Values cannot be any non-string sequence type
 
     Returns: The combined string.
 

@@ -273,6 +273,17 @@ class MiscElementsTestCase(unittest.TestCase):
                 self.assertEqual(entry['Value'], 'TestValue2')
 
 
+class IssueRelatedRegressions(unittest.TestCase):
+    # Issue #7 not yet resolved
+    @unittest.expectedFailure
+    def test_issue_7_nested_joins(self):
+        # Pernicious trailing comma causes an iterable to be passed to
+        # join, which CFN has no idea how to handle
+        nested_join = functions.join('.', 'a', 'b'),
+        containing_join = functions.join('', 'x', 'y', nested_join)
+        self.assertNotEqual(type(containing_join['Fn::Join'][1][2]), tuple)
+
+
 @unittest.skipIf(patch is None, mock_error)
 class CLITestCase(unittest.TestCase):
     def setUp(self):
